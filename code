@@ -1,0 +1,124 @@
+#include <LiquidCrystal.h>
+#include <Keypad.h>
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+////////////////////////////////////////////////////////////
+/* the coeff of the eguatios */
+float  p31 = -5.6194*pow(10,-6);
+float  p32 = 0.0099644;
+float  p33 = -5.6296;
+float  p34 = 1123.7;
+////////////////////////////////
+float  p41 = -6.6105*pow(10,-7);
+float  p42 = 0.0012671;
+float  p43 = -0.90365;
+float  p44 = 284.17;
+float  p45 = -33149;
+//////////////////////////////////
+float p51 = -7.1581*pow(10,-9) ;
+float p52 = 1.6734*pow(10,-9);
+float p53 = -0.015572;
+float p54 = 7.2126;
+float p55 = -1663.3;
+float p56 = 1.5297*pow(10,5);
+////////////////////////////
+float p61 = 4.1347*pow(10,-11) ;
+float p62 = -1.2692*pow(10,-7);
+float p63 = 0.00016078 ;
+float p64 = -0.10765 ;
+float p65 = 40.204 ;
+float p66 = -7946.1 ;
+float p67 = 6.4976*pow(10,-5) ;
+///////////////////////////
+float p71 = 2.0127*pow(10,-11) ;
+float p72 = -6.7521*pow(10,-8);
+float p73 = 9.6784*pow(10,-5);
+float p74 = -0.076841;
+float p75 = 36.495;
+float p76 = -10368;
+float p77 = 1.6316*pow(10,6);
+float p78 = -1.0972*pow(10,8);
+////////////////////////////////
+float p81 = 2.9548*pow(10,-13);
+float p82 = -1.118*pow(10,-9);	
+float p83 = 1.8458*pow(10,-6);
+float p84 = -0.0017366;
+float p85 = 1.0184;
+float p86 = -381.18;
+float p87 = 88933;
+float p88 = -1.1825*pow(10,7);
+float p89 = 6.8604*pow(10,8);
+///////////////////////////
+float p91 = 6.2134*pow(10,-15) ;
+float p92 = -2.6725*pow(10,-11) ;
+float p93 = 5.1*pow(10,-8);
+float p94 = -5.6674*pow(10,-5);
+float p95 = 0.040416;
+float p96 = -19.182 ;
+float p97 = 6058.7 ;
+float p98 = -1.2281*pow(10,6) ;
+float p99 = 1.4496*pow(10,8) ;
+float p910 = -7.5919*pow(10,9) ;
+///////////////////////////
+float p101 = 2.306*pow(10,-16);
+float p102 = -1.096*pow(10,-12);
+float p103 = 2.3395*pow(10,-9);
+float p104 = -2.9536*pow(10,-6);
+float p105 = 0.0024422 ;
+float p106 = -1.382 ;
+float p107 = 542.05 ;
+float p108 = -1.4549*pow(10,5) ;
+float p109 = 2.5577*10*pow(10,7) ;
+float p1010 = -2.6593*pow(10,9) ;
+float p1011 = 1.2418*pow(10,11) ;
+////////////////////////////
+float wt ;
+float fm;
+float ffm=50 ;
+float ht ;
+float z=400;
+float gl=10 ;
+float gl1;
+float gl2 ;
+float gl3;
+float gl4;
+float x;
+void setup ()
+{
+lcd.begin(5, 1);
+Serial.begin(9600) ;
+}
+void loop ()
+{
+
+/*ffm=wt*(1-fm/100);*/ 
+/*ffm=Serial.read () ;
+x=(ffm-3.04)/0.85 ;
+z=ht^2/x;*/
+
+if (z>=500)
+{
+gl1=  p71*pow(z,7) + p72*pow(z,6) +p73*pow(z,5) + p74*pow(z,4) +p75*pow(z,3) + p76*pow(z,2) +p77*z + p78 ;
+gl2 = p81*pow(z,8) + p82*pow(z,7) +p83*pow(z,6) + p84*pow(z,5) +p85*pow(z,4) + p86*pow(z,3) +p87*pow(z,2) + p88*z +p89 ;
+gl3 = p91*pow(z,9) + p92*pow(z,8) +p93*pow(z,7) + p94*pow(z,6 )+p95*pow(z,5 )+ p96*pow(z,4 )+p97*pow(z,3) + p98*pow(z,2) +p99*z + p910 ;
+gl4 = p101*pow(z,10) + p102*pow(z,9) +p103*pow(z,8) + p104*pow(z,7) +p105*pow(z,6) + p106*pow(z,5) +p107*pow(z,4) + p108*pow(z,3) +p109*pow(z,2) + p1010*z +p1011 ;
+gl=(gl1+gl2+gl3+gl4)/4;
+lcd.print( gl );
+}
+else 
+{
+gl1=p31*pow(z,3) + p32*pow(z,2) +p33*z + p34 ;
+gl2= p41*pow(z,4) +p42*pow(z,3) + p43*pow(z,2) +p44*z + p45 ;
+gl3=p51*pow(z,5) + p52*pow(z,4) +p53*pow(z,3) + p54*pow(z,2) +p55*z + p56 ;
+gl4=p61*pow(z,6) +p62*pow(z,5) + p63*pow(z,4) +p64*pow(z,3) + p65*pow(z,2) +p66*z + p67 ;
+gl=(gl1+gl2+gl3+gl4)/4;
+lcd.print( gl );
+}
+
+ /*lcd.prfloat("gulcose in mg/dl is");*/
+ lcd.print( gl );
+  lcd.setCursor(0, 1);
+ delay(2000) ;
+
+
+}
+ 
